@@ -1,0 +1,18 @@
+[package]
+name = "pdf"
+version = "0.1.0"
+authors = ["Kosuke YOSHIMOTO <kosuke.yoshimoto@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+
+[dependencies]
+
+[dev-dependencies]
+
+[profile.release]
