@@ -2,6 +2,7 @@ use super::document::PdfDocument;
 use super::stream::Stream;
 use super::utils::is_whitespace;
 use super::xref::XRef;
+use super::obj::Catalog;
 
 
 impl PdfDocument {
@@ -30,10 +31,14 @@ impl<'a> Reader<'a> {
         stream.reset();
         // 2. startxref
         let startxref = Self::parse_startxref(&mut stream);
-
         dbg!(startxref);
-        let mut xref = XRef::new(stream.clone(), startxref, None);
-        xref.parse();
+
+        let mut xref = XRef::parse(stream.clone(), startxref);
+        dbg!(&xref);
+        let catalog = Catalog::new(&xref);
+        if let Some(version) = catalog.version() {
+            dbg!(version);
+        }
 
     }
 

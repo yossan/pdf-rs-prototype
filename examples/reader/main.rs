@@ -9,13 +9,18 @@ use std::fs::{self, DirEntry};
 use std::io::prelude::*;
 
 fn main() {
-    if let Ok(entries) = fs::read_dir("./sample1") {
+    if let Ok(entries) = fs::read_dir("./samples") {
         for entry in entries {
+
             if let Ok(entry) = entry {
                 if let Ok(file_type) = entry.file_type() {
                     if file_type.is_file() {
                         println!("{:?}", entry.path());
-                        read(entry.path());
+                        if let Some(extension) = entry.path().extension() {
+                            if extension == "pdf" {
+                                read(entry.path());
+                            }
+                        }
                     }
                 }
             }

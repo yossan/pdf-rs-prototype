@@ -1,4 +1,5 @@
 use std::io::{ Read, Cursor, Seek, SeekFrom };
+use super::primitives::Dict;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Stream<'a> {
@@ -18,12 +19,12 @@ impl<'a> Stream<'a> {
             end: length as u64,
         }
     }
-    pub fn new_sub(&self, start: u64, length: usize) -> Self {
+    pub fn new_sub(&self, start: u64) -> Self {
         Stream {
             source: Cursor::new(self.source.get_ref()),
             start: start,
             pos: start,
-            end: start + length as u64,
+            end: self.len(),
         }
     }
 
@@ -158,16 +159,9 @@ impl<'a> Stream<'a> {
         self.start = self.pos;
     }
 
-    /*
-    pub fn make_substream(&mut self, start: u64, length: u64) -> Stream<R> {
-        Stream {
-            source: self.source,
-            start: start,
-            pos: start,
-            end: length,
-        }
+    pub fn make_substream(&self, start: u64 /*, length: u64, dict: Primitives::Dict*/) -> Stream {
+        self.new_sub(start)
     }
-    */
 }
 
 
