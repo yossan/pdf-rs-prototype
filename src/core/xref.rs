@@ -20,8 +20,8 @@ pub struct XRef<'a> {
 impl<'a> Debug for XRef<'a> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("XRef")
-         .field("trailer_dict", &self.trailer_dict)
-         .field("num of entries", &self.entries.len())
+         .field("Trailer: ", &self.trailer_dict)
+         .field("Entries: ", &self.entries)
          .finish()
     }
 }

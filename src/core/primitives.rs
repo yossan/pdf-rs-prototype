@@ -42,8 +42,13 @@ impl Dict {
     }
 
     pub fn get(&self, key: &[u8]) -> Option<&Primitives> {
-        self._map.get(key)
+        // if let Some(Primitives::Ref(value)) = self._map.get(key) {
+        //     return 
+        // }
+
+        None
     }
+    
     pub fn has(&self, key: &[u8]) -> bool {
         self._map.contains_key(key)
     }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Calling Alert from Wasm</title>
+</head>
+<body>
+<label for="file">Choose file to parse</label>
+<input type="file" id="file" accept="application/pdf">
+<p id="result"></p>
+
+<script type="module">
+import * as wasm from './pkg/sample.js'
+wasm.default().then(() => {
+	main(wasm)
+})
+
+function main(pdf) {
+	let file = document.querySelector('#file')
+	file.addEventListener('change', (e) => {
+		let blob = e.target.files[0];
+		let fileReader = new FileReader();
+		fileReader.onload = (e) => {
+			//let str = wasm.read_first_line(new Uint8Array(e.target.result))
+            let resutl = document.getElementById('result')
+			result.innerText = pdf.load_data(new Uint8Array(e.target.result))
+		}
+		fileReader.readAsArrayBuffer(blob);
+	})
+}
+</script>
+</body>
+</html>

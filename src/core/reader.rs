@@ -6,9 +6,10 @@ use super::obj::Catalog;
 
 
 impl PdfDocument {
-    pub fn loadData(buffer: Vec<u8>, password: Option<String>) {
+    pub fn loadData(buffer: Vec<u8>, password: Option<String>) -> String {
+
         let reader = Reader::new(&buffer);
-        reader.parse();
+        return reader.parse();
     }
 }
 
@@ -23,7 +24,7 @@ impl<'a> Reader<'a> {
         }
     }
 
-    fn parse(&self) {
+    fn parse(&self) -> String {
         let len = self.buffer.len();
         let mut stream = Stream::new(self.buffer, len);
 
@@ -31,14 +32,18 @@ impl<'a> Reader<'a> {
         stream.reset();
         // 2. startxref
         let startxref = Self::parse_startxref(&mut stream);
-        dbg!(startxref);
+        // dbg!(startxref);
 
         let mut xref = XRef::parse(stream.clone(), startxref);
-        dbg!(&xref);
+        return format!("{:?}", xref);
+        // dbg!(&xref);
+
+        /*
         let catalog = Catalog::new(&xref);
         if let Some(version) = catalog.version() {
             dbg!(version);
         }
+        */
 
     }
 
